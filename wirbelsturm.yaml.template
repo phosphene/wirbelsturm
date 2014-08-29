@@ -17,54 +17,54 @@ aws:
     aws_secret_key: CHANGEME   # Example: zyxzyxzyxzyxzyxzyxzyxzyxzyx1234567890123
 
 nodes:
-  # Deploys ZooKeeper servers.
-  zookeeper_server:
-    count: 1
-    # Do not change the hostname prefix because it is used in the Hiera YAML configuration data.
-    hostname_prefix: zookeeper
-    ip_range_start: 10.0.0.240
-    node_role: zookeeper_server
-    providers:
-      virtualbox:
-        memory: 512
-      aws:
-        instance_type: m1.xlarge
-        ami: ami-abc12345
-        security_groups:
-          - wirbelsturm
-  # Deploys Storm master machines running Storm's Nimbus and UI daemons.
-  storm_master:
-    # Unless you know what you are doing there should be only one Storm master (Nimbus).
-    count: 1
-    # Do not change the hostname prefix because it is used in the Hiera YAML configuration data.
-    hostname_prefix: nimbus
-    ip_range_start: 10.0.0.250
-    node_role: storm_master
-    providers:
-      virtualbox:
-        memory: 768
-        forwarded_ports:
-          - guest: 8080 # Storm UI
-            host: 28080
-      aws:
-        instance_type: m1.xlarge
-        ami: ami-abc12345
-        security_groups:
-          - wirbelsturm
-  # Deploys Storm slave machines running Storm's Supervisor daemons.
-  storm_slave:
-    count: 2
-    hostname_prefix: supervisor
-    ip_range_start: 10.0.0.100
-    node_role: storm_slave
-    providers:
-      virtualbox:
-        memory: 1024
-      aws:
-        instance_type: c1.xlarge
-        ami: ami-abc12345
-        security_groups:
-          - wirbelsturm
+  # # Deploys ZooKeeper servers.
+  # zookeeper_server:
+  #   count: 1
+  #   # Do not change the hostname prefix because it is used in the Hiera YAML configuration data.
+  #   hostname_prefix: zookeeper
+  #   ip_range_start: 10.0.0.240
+  #   node_role: zookeeper_server
+  #   providers:
+  #     virtualbox:
+  #       memory: 512
+  #     aws:
+  #       instance_type: m1.xlarge
+  #       ami: ami-abc12345
+  #       security_groups:
+  #         - wirbelsturm
+  # # Deploys Storm master machines running Storm's Nimbus and UI daemons.
+  # storm_master:
+  #   # Unless you know what you are doing there should be only one Storm master (Nimbus).
+  #   count: 1
+  #   # Do not change the hostname prefix because it is used in the Hiera YAML configuration data.
+  #   hostname_prefix: nimbus
+  #   ip_range_start: 10.0.0.250
+  #   node_role: storm_master
+  #   providers:
+  #     virtualbox:
+  #       memory: 768
+  #       forwarded_ports:
+  #         - guest: 8080 # Storm UI
+  #           host: 28080
+  #     aws:
+  #       instance_type: m1.xlarge
+  #       ami: ami-abc12345
+  #       security_groups:
+  #         - wirbelsturm
+  # # Deploys Storm slave machines running Storm's Supervisor daemons.
+  # storm_slave:
+  #   count: 1
+  #   hostname_prefix: supervisor
+  #   ip_range_start: 10.0.0.100
+  #   node_role: storm_slave
+  #   providers:
+  #     virtualbox:
+  #       memory: 768
+  #     aws:
+  #       instance_type: c1.xlarge
+  #       ami: ami-abc12345
+  #       security_groups:
+  #         - wirbelsturm
 #  # Deploys Kafka brokers.
 #  kafka_broker:
 #    count: 1
@@ -94,17 +94,17 @@ nodes:
 #        security_groups:
 #          - wirbelsturm
 #  # Deploys single-node Storm clusters, with Nimbus/Supervisor/UI (and ZooKeeper) all running on the same machine.
-#  storm_single_node_cluster:
-#    count: 1 # If you want a multi-node cluster, use storm_master and storm_slave above.
-#    hostname_prefix: stormsingle
-#    ip_range_start: 10.0.0.40
-#    node_role: storm_single
-#    providers:
-#      virtualbox:
-#        memory: 2048
-#        forwarded_ports:
-#          - guest: 8080 # Storm UI
-#            host: 28081
+  storm_single_node_cluster:
+    count: 1 # If you want a multi-node cluster, use storm_master and storm_slave above.
+    hostname_prefix: stormsingle
+    ip_range_start: 10.0.0.40
+    node_role: storm_single
+    providers:
+      virtualbox:
+        memory: 2048
+        forwarded_ports:
+          - guest: 8080 # Storm UI
+            host: 28081
 #      aws:
 #        instance_type: m1.xlarge
 #        ami: ami-abc12345
