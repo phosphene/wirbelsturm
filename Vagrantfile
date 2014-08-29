@@ -24,7 +24,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   nodes.each_pair do |node_name,node_opts|
     config.vm.define node_name do |c|
       c.vm.hostname = node_name.to_s
-      c.vm.box = "centos6-compatible"
+      c.vm.box = "centos7-compatible"
       c.vm.network :private_network, ip: node_opts[:ip]
       c.vm.synced_folder "./", "/vagrant", disabled: true
       c.vm.synced_folder "shared/", "/shared"
@@ -35,10 +35,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       ###
       ### VirtualBox provider
       ###
+      c.vm.provider "virtualbox" do |v|
+        v.gui = true
+      end
       c.vm.provider :virtualbox do |vb, override|
         vb.customize [
             'modifyvm', :id,
-            '--memory', node_opts[:virtualbox][:memory],
+            '--memory', node_opts[:virtualbox][:memory]
+           # '--ioapic', 'off'
         ]
         # Only configure /etc/hosts entries with vagrant-hosts plugin when using VirtualBox
         # (because e.g. it is not supported on Amazon EC2)
