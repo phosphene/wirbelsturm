@@ -24,10 +24,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   nodes.each_pair do |node_name,node_opts|
     config.vm.define node_name do |c|
       c.vm.hostname = node_name.to_s
-      c.vm.box = "centos7-compatible"
+      c.vm.box = "centos6-compatible"
       c.vm.network :private_network, ip: node_opts[:ip]
       c.vm.synced_folder "./", "/vagrant", disabled: true
       c.vm.synced_folder "shared/", "/shared"
+      c.vm.boot_timeout = 600
       # TODO: We can also try to move hieradata into a separate location (i.e. out of puppet/manifests/).
       # For the following example to work, we would need to add sth like "--environment #{ROLE}" to puppet.options:
       #config.vm.synced_folder "hieradata", "/etc/puppet/environments/#{ROLE}/hieradata"
