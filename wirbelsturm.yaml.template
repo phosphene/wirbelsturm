@@ -105,11 +105,11 @@ nodes:
         forwarded_ports:
           - guest: 8080 # Storm UI
             host: 28081
-#      aws:
-#        instance_type: m1.xlarge
-#        ami: ami-abc12345
-#        security_groups:
-#          - wirbelsturm
+      aws:
+        instance_type: m1.xlarge
+        ami: ami-abc12345
+        security_groups:
+          - wirbelsturm
 #  # Deploys Wirbelsturm build servers.
 #  build_server:
 #    count: 1
