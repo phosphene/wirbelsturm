@@ -1,25 +1,44 @@
 # Wirbelsturm
 
-Wirbelsturm is a [Vagrant](http://www.vagrantup.com/) and [Puppet](https://puppetlabs.com/) based tool to perform
-1-click local and remote deployments, with a focus on big data related infrastructure.
+Wirbelsturm is a deployment tool for Storm and Kafka.
 
-**Wirbelsturm's goal is to make tasks such as "I want to deploy a multi-node Storm cluster" _simple_, _easy_, and**
-**_fun_**.
 
-It has been called the "Cluster Vagrant" and "Big Data Vagrant" by some of its users, albeit in our opinion that makes
-Wirbelsturm appear to be more than it really is, and it doesn't give enough [credit](#credits) to the tools on which it
-is based.
+
+```shell
+$ git clone https://github.com/phosphene/wirbelsturm.git
+$ cd wirbelsturm
+$ ./bootstrap
+$ vagrant up provider=virtualbox
+```
+currently configured to launch a single-node cluster
+
+A multi-node cluster is also possible on a machine with sufficient capacity.
+
+
+Pros: Provisions and deploys to clusters on both local and aws instances. Is an active and recent project with current development.
+
+
+Cons: uses Puppet. Although this is a masterless Puppet setup and although it brings in all its puppet dependencies on bootstrap and although no other parts of our infrastructure need depend on puppet, it is still a puppet based solution and might require some puppet tweeking. Is that acceptable? No test harness is currently included: i.e. no test-kitchen or beaker.
+
+
+A test harness such as test-kitchen could test provisioning and deployment as well as the submission and running of a topology. Test Kitchen is more mature than Beaker and can be used with Puppet as well as Chef.
+
+
+
+Wirbelsturm is a [Vagrant](http://www.vagrantup.com/) and [Puppet](https://puppetlabs.com/) based tool
+
+
 
 Its direct value proposition is two-fold:
 
-1. ***Provide a working integration of [Vagrant](http://www.vagrantup.com/) and [Puppet](https://puppetlabs.com/).***  
+1. ***Provide a working integration of [Vagrant](http://www.vagrantup.com/) and [Puppet](https://puppetlabs.com/).***
    Vagrant is used to create and manage machines, Puppet is used for provisioning those machines (e.g. to install and
    configure software packages).  Because Wirbelsturm uses Vagrant you can basically deploy to any target platform
    that Vagrant supports -- local VMs, AWS, OpenStack, etc. -- although Wirbelsturm does not support all of those out
    of the box yet.  While Wirbelsturm's Puppet setup is slightly opinionated with its preference for
    [Hiera](http://docs.puppetlabs.com/hiera/1/) and with its notion of _environments_ and _roles_, these conventions
    should help to jumpstart new users and, of course, you can change this behavior if needed.
-2. ***Add a thin wrapper layer around Vagrant to simplify deploying multiple machines of the same kind.***  
+2. ***Add a thin wrapper layer around Vagrant to simplify deploying multiple machines of the same kind.***
    This is very helpful when deploying software such as [Storm](http://storm.incubator.apache.org/),
    [Kafka](http://kafka.apache.org/) and [Hadoop](http://hadoop.apache.org/) clusters, where most of the machines look
    the same.  In native Vagrant you would be required to (say) manually maintain 30 configuration sections in
