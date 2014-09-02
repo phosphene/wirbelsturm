@@ -1,5 +1,7 @@
 # Wirbelsturm
 
+### Phosphene's added research notes and synthesis
+
 Wirbelsturm is a deployment tool for Storm and Kafka.
 
 
@@ -27,7 +29,7 @@ A test harness such as test-kitchen could test provisioning and deployment as we
 
 Wirbelsturm is a [Vagrant](http://www.vagrantup.com/) and [Puppet](https://puppetlabs.com/) based tool
 
-
+#### Wilbersturm team's readme follows
 
 Its direct value proposition is two-fold:
 
